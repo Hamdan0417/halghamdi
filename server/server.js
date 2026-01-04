@@ -33,6 +33,10 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
         return res.status(200).json({ success: true, message: 'Message sent successfully.' });
     }
 
+    if (!email || !email.trim()) {
+        return res.status(400).json({ error: 'Email is required.' });
+    }
+
     // 2. Turnstile Verification
     const SECRET_KEY = process.env.TURNSTILE_SECRET_KEY;
     if (!SECRET_KEY) {
