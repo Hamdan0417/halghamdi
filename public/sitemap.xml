@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://halghamdi.com/en/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://halghamdi.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://halghamdi.com/en/"/>
+  </url>
+  <url>
+    <loc>https://halghamdi.com/ar/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://halghamdi.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://halghamdi.com/en/"/>
+  </url>
+  <url>
+    <loc>https://halghamdi.com/en/expertise/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://halghamdi.com/ar/expertise/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://halghamdi.com/en/expertise/"/>
+  </url>
+  <url>
+    <loc>https://halghamdi.com/ar/expertise/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://halghamdi.com/ar/expertise/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://halghamdi.com/en/expertise/"/>
+  </url>
+  <url>
+    <loc>https://halghamdi.com/en/companies/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://halghamdi.com/ar/companies/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://halghamdi.com/en/companies/"/>
+  </url>
+  <url>
+    <loc>https://halghamdi.com/ar/companies/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://halghamdi.com/ar/companies/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://halghamdi.com/en/companies/"/>
+  </url>
+  <url>
+    <loc>https://halghamdi.com/en/contact/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://halghamdi.com/ar/contact/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://halghamdi.com/en/contact/"/>
+  </url>
+  <url>
+    <loc>https://halghamdi.com/ar/contact/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://halghamdi.com/ar/contact/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://halghamdi.com/en/contact/"/>
+  </url>
+</urlset>

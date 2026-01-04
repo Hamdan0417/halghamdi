@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Hamdan Alghamdi</title>
+    <meta name="description" content="Contact Hamdan Alghamdi. Send inquiries regarding legal consulting, business partnerships, or speaking engagements.">
+    <link rel="canonical" href="https://halghamdi.com/en/contact/" />
+    <link rel="alternate" hreflang="ar" href="https://halghamdi.com/ar/contact/" />
+    <link rel="alternate" hreflang="en" href="https://halghamdi.com/en/contact/" />
+
+    <!-- OpenGraph -->
+    <meta property="og:title" content="Contact | Hamdan Alghamdi">
+    <meta property="og:description" content="Get in touch for inquiries regarding legal consulting or partnerships.">
+    <meta property="og:image" content="https://halghamdi.com/assets/og-image.jpg">
+    <meta property="og:url" content="https://halghamdi.com/en/contact/">
+    <meta property="og:type" content="website">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700&family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../css/style.css">
+
+    <!-- Cloudflare Turnstile -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="/en/" class="nav-logo">HAMDAN ALGHAMDI</a>
+            <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+            <div class="nav-links">
+                <a href="/en/">Home</a>
+                <a href="/en/expertise/">Expertise</a>
+                <a href="/en/companies/">Companies</a>
+                <a href="/en/contact/" aria-current="page" style="color: var(--color-accent);">Contact</a>
+                <a href="/ar/contact/" class="lang-switch lang-toggle-btn" data-lang="ar">العربية</a>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                   <span class="icon">◑</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="section" style="padding-top: 120px;">
+            <div class="container" style="max-width: 800px;">
+                <h1 class="fade-up">Get in Touch</h1>
+                <p class="fade-up" style="margin-bottom: var(--spacing-md);">
+                    For inquiries regarding legal consulting, business partnerships, or other professional matters, please use the form below or email directly.
+                </p>
+
+                <div class="card fade-up" style="margin-bottom: var(--spacing-lg); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                    <div>
+                        <strong>Email directly:</strong>
+                        <br>
+                        <a href="mailto:contact@halghamdi.com" style="color: var(--color-accent); font-size: 1.1rem;">contact@halghamdi.com</a>
+                    </div>
+                    <button class="btn btn-outline" onclick="navigator.clipboard.writeText('contact@halghamdi.com').then(() => alert('Email copied!'))">
+                        Copy Email
+                    </button>
+                </div>
+
+                <div class="card fade-up">
+                    <form id="contact-form" action="/api/contact" method="POST">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Full Name <span style="color: var(--color-error)">*</span></label>
+                            <input type="text" id="name" name="name" class="form-input" required>
+                        </div>
+
+                        <div class="grid" style="grid-template-columns: 1fr 1fr;">
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" id="email" name="email" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label for="mobile" class="form-label">Mobile (Optional)</label>
+                                <input type="tel" id="mobile" name="mobile" class="form-input">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Subject <span style="color: var(--color-error)">*</span></label>
+                            <input type="text" id="subject" name="subject" class="form-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message <span style="color: var(--color-error)">*</span></label>
+                            <textarea id="message" name="message" class="form-textarea" rows="6" required></textarea>
+                        </div>
+
+                        <!-- Honeypot -->
+                        <div style="display:none;">
+                            <label for="honeypot">Do not fill this field</label>
+                            <input type="text" id="honeypot" name="honeypot">
+                        </div>
+
+                        <!-- Turnstile -->
+                        <div class="form-group">
+                            <div class="cf-turnstile" data-sitekey="0x4AAAAAAAHzN6Yx7Q_jQZ00" data-theme="light"></div>
+                            <!-- Note: Using dummy sitekey for now. User must replace in HTML or via JS inject if they want real functionality immediately without keys -->
+                        </div>
+
+                        <div id="form-status" style="margin-bottom: 1rem; display: none; padding: 0.5rem; border-radius: 4px;"></div>
+
+                        <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; <script>document.write(new Date().getFullYear())</script> Hamdan Alghamdi. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        const form = document.getElementById('contact-form');
+        const statusDiv = document.getElementById('form-status');
+        const submitBtn = document.getElementById('submit-btn');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            statusDiv.style.display = 'none';
+
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            // Get Turnstile token
+            const token = formData.get('cf-turnstile-response');
+            data.token = token;
+
+            try {
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                statusDiv.style.display = 'block';
+                if (response.ok) {
+                    statusDiv.style.backgroundColor = 'var(--color-success)';
+                    statusDiv.style.color = 'white';
+                    statusDiv.textContent = result.message || 'Message sent successfully!';
+                    form.reset();
+                    // Reset Turnstile if possible
+                    if(window.turnstile) window.turnstile.reset();
+                } else {
+                    throw new Error(result.error || 'Submission failed');
+                }
+            } catch (error) {
+                statusDiv.style.backgroundColor = 'var(--color-error)';
+                statusDiv.style.color = 'white';
+                statusDiv.textContent = error.message;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+            }
+        });
+    </script>
+</body>
+</html>
