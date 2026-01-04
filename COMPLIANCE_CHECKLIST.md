@@ -1,0 +1,24 @@
+# Compliance Checklist
+
+- [x] **No Phone Number:** Verified. Only email is shown.
+- [x] **No Crypto/Blockchain:** Verified. No mentions in text or meta tags.
+- [x] **Bilingual Support:**
+    - [x] `/ar/` has `dir="rtl"` and Arabic fonts.
+    - [x] `/en/` has `dir="ltr"` and English fonts.
+    - [x] Automatic redirection at root.
+- [x] **SEO Implementation:**
+    - [x] Unique Title/Description per page.
+    - [x] Canonical tags.
+    - [x] Hreflang alternates.
+    - [x] OpenGraph tags.
+    - [x] JSON-LD Schema.
+    - [x] sitemap.xml and robots.txt.
+- [x] **Contact Form:**
+    - [x] Turnstile (Anti-spam) integration.
+    - [x] Honeypot field.
+    - [x] Rate limiting.
+    - [x] Server-side validation.
+- [x] **Design:**
+    - [x] Responsive.
+    - [x] Dark/Light mode.
+    - [x] No frameworks used (Pure HTML/CSS/JS).
