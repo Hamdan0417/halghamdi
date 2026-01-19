@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تواصل معي | حمدان الغامدي</title>
     <meta name="description" content="تواصل مع حمدان الغامدي للاستفسارات المتعلقة بالاستشارات القانونية، الشراكات التجارية، أو المهام المهنية.">
+    <meta name="keywords" content="تواصل, استشارات قانونية, شراكات تجارية, مهام مهنية, السعودية, حمدان الغامدي">
+    <meta name="robots" content="index,follow">
     <link rel="canonical" href="https://halghamdi.com/ar/contact/" />
     <link rel="alternate" hreflang="ar" href="https://halghamdi.com/ar/contact/" />
     <link rel="alternate" hreflang="en" href="https://halghamdi.com/en/contact/" />
+    <link rel="alternate" hreflang="x-default" href="https://halghamdi.com/en/contact/" />
 
     <!-- OpenGraph -->
     <meta property="og:title" content="تواصل معي | حمدان الغامدي">
@@ -15,6 +18,15 @@
     <meta property="og:image" content="https://halghamdi.com/assets/og-image.jpg">
     <meta property="og:url" content="https://halghamdi.com/ar/contact/">
     <meta property="og:type" content="website">
+    <meta property="og:locale" content="ar_SA">
+    <meta property="og:site_name" content="Hamdan Alghamdi">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="تواصل معي | حمدان الغامدي">
+    <meta name="twitter:description" content="تواصل للاستفسارات المتعلقة بالاستشارات القانونية أو الشراكات.">
+    <meta name="twitter:image" content="https://halghamdi.com/assets/og-image.jpg">
+    <meta name="twitter:url" content="https://halghamdi.com/ar/contact/">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,6 +34,47 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700&family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../../css/style.css">
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "حمدان الغامدي",
+        "jobTitle": "رائد أعمال ومستشار قانوني عام",
+        "url": "https://halghamdi.com",
+        "email": "contact@halghamdi.com",
+        "knowsAbout": ["حوكمة الشركات", "الامتثال", "العقود", "الشراكات الاستراتيجية"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Hamdan Alghamdi",
+        "url": "https://halghamdi.com",
+        "inLanguage": "ar"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "تواصل معي | حمدان الغامدي",
+        "description": "تواصل مع حمدان الغامدي للاستفسارات المتعلقة بالاستشارات القانونية، الشراكات التجارية، أو المهام المهنية.",
+        "url": "https://halghamdi.com/ar/contact/",
+        "inLanguage": "ar",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "Hamdan Alghamdi",
+            "url": "https://halghamdi.com"
+        },
+        "about": {
+            "@type": "Person",
+            "name": "حمدان الغامدي"
+        }
+    }
+    </script>
 
     <!-- Cloudflare Turnstile -->
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
@@ -36,6 +89,7 @@
                 <a href="/ar/">الرئيسية</a>
                 <a href="/ar/expertise/">الخبرات</a>
                 <a href="/ar/companies/">الشركات</a>
+                <a href="/ar/courses/">الدورات</a>
                 <a href="/ar/contact/" aria-current="page" style="color: var(--color-accent);">تواصل معي</a>
                 <a href="/en/contact/" class="lang-switch lang-toggle-btn" data-lang="en">English</a>
                 <button id="theme-toggle" class="theme-toggle" aria-label="تبديل المظهر">
@@ -65,7 +119,7 @@
                 </div>
 
                 <div class="card fade-up">
-                    <form id="contact-form" action="/api/contact" method="POST">
+                    <form id="contact-form" action="/contact.php" method="POST">
                         <div class="form-group">
                             <label for="name" class="form-label">الاسم الكامل <span style="color: var(--color-error)">*</span></label>
                             <input type="text" id="name" name="name" class="form-input" required>
@@ -100,7 +154,7 @@
 
                         <!-- Turnstile -->
                         <div class="form-group">
-                            <div class="cf-turnstile" data-sitekey="0x4AAAAAAAHzN6Yx7Q_jQZ00" data-theme="light"></div>
+                            <div class="cf-turnstile" data-sitekey="{{TURNSTILE_SITE_KEY}}" data-theme="light"></div>
                         </div>
 
                         <div id="form-status" style="margin-bottom: 1rem; display: none; padding: 0.5rem; border-radius: 4px;"></div>
@@ -131,16 +185,13 @@
             statusDiv.style.display = 'none';
 
             const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
-
             const token = formData.get('cf-turnstile-response');
-            data.token = token;
+            if (token) formData.append('token', token);
 
             try {
-                const response = await fetch('/api/contact', {
+                const response = await fetch('/contact.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
+                    body: formData
                 });
 
                 const result = await response.json();

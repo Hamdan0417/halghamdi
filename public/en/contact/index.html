@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact | Hamdan Alghamdi</title>
     <meta name="description" content="Contact Hamdan Alghamdi. Send inquiries regarding legal consulting, business partnerships, or speaking engagements.">
+    <meta name="keywords" content="contact, legal consulting, business partnerships, speaking engagements, Saudi Arabia, Hamdan Alghamdi">
+    <meta name="robots" content="index,follow">
     <link rel="canonical" href="https://halghamdi.com/en/contact/" />
     <link rel="alternate" hreflang="ar" href="https://halghamdi.com/ar/contact/" />
     <link rel="alternate" hreflang="en" href="https://halghamdi.com/en/contact/" />
+    <link rel="alternate" hreflang="x-default" href="https://halghamdi.com/en/contact/" />
 
     <!-- OpenGraph -->
     <meta property="og:title" content="Contact | Hamdan Alghamdi">
@@ -15,6 +18,15 @@
     <meta property="og:image" content="https://halghamdi.com/assets/og-image.jpg">
     <meta property="og:url" content="https://halghamdi.com/en/contact/">
     <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Hamdan Alghamdi">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Contact | Hamdan Alghamdi">
+    <meta name="twitter:description" content="Get in touch for inquiries regarding legal consulting or partnerships.">
+    <meta name="twitter:image" content="https://halghamdi.com/assets/og-image.jpg">
+    <meta name="twitter:url" content="https://halghamdi.com/en/contact/">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,6 +34,47 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700&family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../../css/style.css">
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Hamdan Alghamdi",
+        "jobTitle": "Entrepreneur & General Counsel",
+        "url": "https://halghamdi.com",
+        "email": "contact@halghamdi.com",
+        "knowsAbout": ["Corporate Governance", "Compliance", "Contracts", "Strategic Partnerships"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Hamdan Alghamdi",
+        "url": "https://halghamdi.com",
+        "inLanguage": "en"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Contact | Hamdan Alghamdi",
+        "description": "Contact Hamdan Alghamdi. Send inquiries regarding legal consulting, business partnerships, or speaking engagements.",
+        "url": "https://halghamdi.com/en/contact/",
+        "inLanguage": "en",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "Hamdan Alghamdi",
+            "url": "https://halghamdi.com"
+        },
+        "about": {
+            "@type": "Person",
+            "name": "Hamdan Alghamdi"
+        }
+    }
+    </script>
 
     <!-- Cloudflare Turnstile -->
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
@@ -36,6 +89,7 @@
                 <a href="/en/">Home</a>
                 <a href="/en/expertise/">Expertise</a>
                 <a href="/en/companies/">Companies</a>
+                <a href="/en/courses/">Courses</a>
                 <a href="/en/contact/" aria-current="page" style="color: var(--color-accent);">Contact</a>
                 <a href="/ar/contact/" class="lang-switch lang-toggle-btn" data-lang="ar">العربية</a>
                 <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
@@ -65,7 +119,7 @@
                 </div>
 
                 <div class="card fade-up">
-                    <form id="contact-form" action="/api/contact" method="POST">
+                    <form id="contact-form" action="/contact.php" method="POST">
                         <div class="form-group">
                             <label for="name" class="form-label">Full Name <span style="color: var(--color-error)">*</span></label>
                             <input type="text" id="name" name="name" class="form-input" required>
@@ -100,8 +154,7 @@
 
                         <!-- Turnstile -->
                         <div class="form-group">
-                            <div class="cf-turnstile" data-sitekey="0x4AAAAAAAHzN6Yx7Q_jQZ00" data-theme="light"></div>
-                            <!-- Note: Using dummy sitekey for now. User must replace in HTML or via JS inject if they want real functionality immediately without keys -->
+                            <div class="cf-turnstile" data-sitekey="{{TURNSTILE_SITE_KEY}}" data-theme="light"></div>
                         </div>
 
                         <div id="form-status" style="margin-bottom: 1rem; display: none; padding: 0.5rem; border-radius: 4px;"></div>
@@ -132,17 +185,14 @@
             statusDiv.style.display = 'none';
 
             const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
-
-            // Get Turnstile token
-            const token = formData.get('cf-turnstile-response');
-            data.token = token;
-
             try {
-                const response = await fetch('/api/contact', {
+                // Get Turnstile token
+                const token = formData.get('cf-turnstile-response');
+                if (token) formData.append('token', token);
+
+                const response = await fetch('/contact.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
+                    body: formData
                 });
 
                 const result = await response.json();

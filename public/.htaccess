@@ -1,0 +1,15 @@
+# 1. منع ظهور قائمة الملفات (Index of) تماماً
+Options -Indexes
+
+# 2. إجبار السيرفر على اعتبار index.html هو البداية
+DirectoryIndex index.html index.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # 3. توجيه اللغات ar و en
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(ar|en)$ $1/ [R=301,L]
+</IfModule>
